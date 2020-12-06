@@ -128,7 +128,36 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 72));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 96));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -185,15 +214,136 @@ __webpack_require__.r(__webpack_exports__);
     uniStatusBar: uniStatusBar },
 
   data: function data() {
-    return {};
-
+    return {
+      status: false,
+      password: '',
+      phone: '',
+      code: '',
+      codeTime: 0,
+      loading: false };
 
   },
+  onLoad: function onLoad() {
+
+  },
+  computed: {
+    disabled: function disabled() {
+      if ((this.phone === '' || this.password === '') && (this.phone === '' || this.code === ''))
+      {
+        return true;
+      }
+      return false;
+    } },
+
   methods: {
     back: function back() {
       uni.navigateBack({
         delta: 1 });
 
+    },
+    //初始化表单
+    initForm: function initForm() {
+      this.phone = '';
+      this.password = '';
+      this.code = '';
+    },
+    //切换登录方式
+    changeStatus: function changeStatus() {
+      this.initForm();
+      this.status = !this.status;
+    },
+    //获取验证码
+    getCode: function getCode() {var _this = this;
+      //防止重复获取
+      if (this.codeTime > 0) {
+        return;
+      }
+      //验证手机号
+      if (!this.validate()) return;
+      //请求数据
+      this.$H.
+      post(
+      '/user/sendcode?phone=' + this.phone,
+      {
+        native: true }).
+
+      then(function (res) {
+        //倒计时
+        _this.codeTime = 60;
+        var timer = setInterval(function () {
+          if (_this.codeTime >= 1) {
+            _this.codeTime--;
+          } else {
+            _this.codeTime = 0;
+            clearInterval(timer);
+          }
+        }, 1000);
+      });
+    },
+    //表单验证
+    validate: function validate() {
+      //手机号正则
+      var mPattern = /^1[34578]\d{9}$/;
+      if (!mPattern.test(this.phone)) {
+        uni.showToast({
+          title: '手机格式不正确',
+          icon: 'none' });
+
+        return false;
+      }
+      // ...更多验证
+      return true;
+    },
+    // 提交
+    submit: function submit() {var _this2 = this;
+      //表单验证
+      var url = '';
+      var data = '';
+      if (this.status) {
+        //手机验证码登录
+        if (!this.validate()) return;
+        url = '/user/phonelogin';
+        data = {
+          phone: this.phone,
+          code: this.code };
+
+      } else {
+        //账号密码登录
+        url = '/user/login';
+        data = {
+          phone: this.phone,
+          password: this.password };
+
+      }
+      //提交后端
+      this.loading = true;
+      this.$H.
+      post(url, data).
+      then(function (res) {
+        _this2.loading = false;
+        console.log(res);
+        //修改vuex的state，持久化存储
+        _this2.$store.commit('login', res);
+        //提示和跳转
+        uni.showModal({
+          title: '登录成功',
+          content: '去看看',
+          success: function success(res) {
+            if (res.confirm) {
+              uni.switchTab({
+                url: '../my/my' });
+
+            } else if (res.cancel) {
+              console.log('用户点击取消');
+              return;
+            }
+          } });
+
+      }).
+      catch(function (err) {
+        //登录失败
+        _this2.loading = false;
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
