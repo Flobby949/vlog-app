@@ -128,18 +128,32 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniCollapse = function uniCollapse() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-collapse/uni-collapse */ "components/uni-ui/uni-collapse/uni-collapse").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-collapse/uni-collapse.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniCollapseItem = function uniCollapseItem() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-collapse-item/uni-collapse-item */ "components/uni-ui/uni-collapse-item/uni-collapse-item").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-collapse-item/uni-collapse-item.vue */ 132));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    uniCollapse: uniCollapse,
+    uniCollapseItem: uniCollapseItem },
+
   data: function data() {
     return {};
-
-
   },
   methods: {} };exports.default = _default;
 

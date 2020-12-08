@@ -1,1 +1,1 @@
-<view>关于社区</view>
+<view><view class="text-center"><image class="center mb-2" style="width:250rpx;height:250rpx;border-radius:80rpx;" src="../../static/common/nothing.png"></image><view style="color:#999999;font-size:30rpx;">version 1.0.0</view></view><uni-list-item vue-id="1cea7424-1" title="新版本检测" bind:__l="__l"></uni-list-item><uni-list-item vue-id="1cea7424-2" title="社区用户协议" bind:__l="__l"></uni-list-item></view>

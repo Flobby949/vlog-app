@@ -128,22 +128,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 96));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 108));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -223,13 +208,10 @@ __webpack_require__.r(__webpack_exports__);
       loading: false };
 
   },
-  onLoad: function onLoad() {
-
-  },
+  onLoad: function onLoad() {},
   computed: {
     disabled: function disabled() {
-      if ((this.phone === '' || this.password === '') && (this.phone === '' || this.code === ''))
-      {
+      if ((this.phone === '' || this.password === '') && (this.phone === '' || this.code === '')) {
         return true;
       }
       return false;
@@ -262,9 +244,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.validate()) return;
       //请求数据
       this.$H.
-      post(
-      '/user/sendcode?phone=' + this.phone,
-      {
+      post('/user/sendcode?phone=' + this.phone, {
         native: true }).
 
       then(function (res) {
@@ -321,24 +301,31 @@ __webpack_require__.r(__webpack_exports__);
       post(url, data).
       then(function (res) {
         _this2.loading = false;
-        console.log(res);
-        //修改vuex的state，持久化存储
-        _this2.$store.commit('login', res);
-        //提示和跳转
-        uni.showModal({
-          title: '登录成功',
-          content: '去看看',
-          success: function success(res) {
-            if (res.confirm) {
-              uni.switchTab({
-                url: '../my/my' });
+        if (res) {
+          console.log(res);
+          //修改vuex的state，持久化存储
+          _this2.$store.commit('login', res);
+          //提示和跳转
+          uni.showModal({
+            title: '登录成功',
+            content: '去看看',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.switchTab({
+                  url: '../my/my' });
 
-            } else if (res.cancel) {
-              console.log('用户点击取消');
-              return;
-            }
-          } });
+              } else if (res.cancel) {
+                console.log('用户登录取消');
+                return;
+              }
+            } });
 
+        } else {
+          uni.showModal({
+            title: '登录失败' });
+
+          return;
+        }
       }).
       catch(function (err) {
         //登录失败

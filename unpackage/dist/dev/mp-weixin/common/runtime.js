@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/uni-ui/uni-nav-bar/uni-nav-bar":1,"components/uni-ui/uni-list-item/uni-list-item":1,"components/uni-ui/uni-status-bar/uni-status-bar":1,"components/uni-ui/uni-icons/uni-icons":1,"components/uni-ui/uni-badge/uni-badge":1};
+/******/ 		var cssChunks = {"components/uni-ui/uni-nav-bar/uni-nav-bar":1,"components/uni-ui/uni-list-item/uni-list-item":1,"components/uni-ui/uni-status-bar/uni-status-bar":1,"components/uni-ui/mpvue-citypicker/mpvueCityPicker":1,"components/uni-ui/uni-collapse-item/uni-collapse-item":1,"components/uni-ui/uni-collapse/uni-collapse":1,"components/uni-ui/uni-icons/uni-icons":1,"components/uni-ui/uni-badge/uni-badge":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/common/divider":"components/common/divider","components/common/no-thing":"components/common/no-thing","components/uni-ui/uni-nav-bar/uni-nav-bar":"components/uni-ui/uni-nav-bar/uni-nav-bar","components/uni-ui/uni-list-item/uni-list-item":"components/uni-ui/uni-list-item/uni-list-item","components/uni-ui/uni-status-bar/uni-status-bar":"components/uni-ui/uni-status-bar/uni-status-bar","components/uni-ui/uni-icons/uni-icons":"components/uni-ui/uni-icons/uni-icons","components/uni-ui/uni-badge/uni-badge":"components/uni-ui/uni-badge/uni-badge"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/common/divider":"components/common/divider","components/common/no-thing":"components/common/no-thing","components/uni-ui/uni-nav-bar/uni-nav-bar":"components/uni-ui/uni-nav-bar/uni-nav-bar","components/uni-ui/uni-list-item/uni-list-item":"components/uni-ui/uni-list-item/uni-list-item","components/uni-ui/uni-status-bar/uni-status-bar":"components/uni-ui/uni-status-bar/uni-status-bar","components/uni-ui/mpvue-citypicker/mpvueCityPicker":"components/uni-ui/mpvue-citypicker/mpvueCityPicker","components/uni-ui/uni-collapse-item/uni-collapse-item":"components/uni-ui/uni-collapse-item/uni-collapse-item","components/uni-ui/uni-collapse/uni-collapse":"components/uni-ui/uni-collapse/uni-collapse","components/uni-ui/uni-icons/uni-icons":"components/uni-ui/uni-icons/uni-icons","components/uni-ui/uni-badge/uni-badge":"components/uni-ui/uni-badge/uni-badge"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

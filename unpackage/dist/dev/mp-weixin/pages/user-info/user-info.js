@@ -128,20 +128,196 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
-  },
-  methods: {} };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var genderArray = ['保密', '男', '女'];var uniListItem = function uniListItem() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-list-item/uni-list-item.vue */ 101));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/uni-ui/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/mpvue-citypicker/mpvueCityPicker.vue */ 115));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniListItem: uniListItem, mpvueCityPicker: mpvueCityPicker }, data: function data() {return { themeColor: '#007AFF', cityPickerValueDefault: [0, 0, 1], pickerText: '', nickname: '', gender: 0, birthday: '' };}, //监听返回
+  onBackPress: function onBackPress() {if (this.$refs.mpvueCityPicker.showPicker) {this.$refs.mpvueCityPicker.pickerCancel();return true;}}, //监听页面卸载
+  onUnload: function onUnload() {if (this.$refs.mpvueCityPicker.showCityPicker) {this.$refs.mpvueCityPicker.pickerCancel();}}, onLoad: function onLoad() {var userinfo = this.user;if (userinfo) {this.nickname = userinfo.nickname;this.avatar = userinfo.avatar;this.gender = userinfo.gender;this.pickerText = userinfo.address;this.birthday = userinfo.birthday;}}, computed: _objectSpread(_objectSpread({}, (0, _vuex.mapState)({ user: function user(state) {return state.user;} })), {}, { genderText: function genderText() {return genderArray[this.gender];} }), methods: {
+    //显示三级联动城市组件
+    showCityPicker: function showCityPicker() {
+      this.$refs.mpvueCityPicker.show();
+    },
+    //三级联动选择组件提交事件，监听相应的值并显示
+    onConfirm: function onConfirm(e) {
+      this.pickerText = e.label;
+    },
+    //监听日期选取，改变生日显示的值
+    onDateChange: function onDateChange(e) {
+      this.birthday = e.detail.value;
+    },
+    //修改头像
+    changeAvatar: function changeAvatar() {var _this = this;
+      uni.chooseImage({
+        count: 1,
+        sizeType: ['compressed'],
+        sourceType: ['album', 'camera'],
+        success: function success(res) {
+          //本地文件地址
+          //console.log(res.tempFilePaths[0]);
+          _this.$H.
+          upload('/user/upload', {
+            filePath: res.tempFilePaths[0],
+            name: 'file' //一定要和后端接入的入参名字一致
+          }).
+          then(function (result) {
+            // console.log(result,data);
+            var data = {
+              id: _this.user.id,
+              phone: _this.user.phone,
+              password: _this.user.password,
+              nickname: _this.user.nickname,
+              avatar: result.data,
+              gender: _this.user.gender,
+              birthday: _this.user.birthday,
+              address: _this.user.pickerText,
+              createTime: _this.user.createTime };
+
+            _this.$H.post('/user/update', data).then(function (res) {
+              console.log(res);
+              _this.$store.commit('editUserInfo', data);
+              uni.showToast({
+                title: '修改头像成功',
+                icon: 'none' });
+
+            });
+          }).
+          catch(function (err) {
+            console.log(err);
+          });
+        } });
+
+    },
+    //修改性别
+    changeGender: function changeGender() {var _this2 = this;
+      uni.showActionSheet({
+        itemList: genderArray,
+        success: function success(res) {
+          _this2.gender = res.tapIndex;
+          if (_this2.gender == 0) {
+            _this2.genderText = '保密';
+          } else if (_this2.gender == 1) {
+            _this2.genderText = '男';
+          } else if (_this2.gender == 2) {
+            _this2.genderText = '女';
+          }
+        } });
+
+    },
+    //提交
+    submit: function submit() {var _this3 = this;
+      var data = {
+        id: this.user.id,
+        phone: this.user.phone,
+        password: this.user.password,
+        nickname: this.nickname,
+        avatar: this.user.avatar,
+        gender: this.gender,
+        birthday: this.birthday,
+        address: this.pickerText,
+        createTime: this.user.createTime };
+
+      this.$H.post('/user/update', data).then(function (res) {
+        console.log(res);
+        _this3.$store.commit('editUserInfo', data);
+        uni.showToast({
+          title: '修改资料成功',
+          icon: 'none' });
+
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

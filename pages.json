@@ -113,6 +113,22 @@
             }
             
         }
+        ,{
+            "path" : "pages/safety/safety",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "账号安全"
+            }
+            
+        }
+        ,{
+            "path" : "pages/modify-password/modify-password",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改密码"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
