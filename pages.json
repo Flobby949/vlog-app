@@ -129,6 +129,14 @@
             }
             
         }
+        ,{
+            "path" : "pages/bind-phone/bind-phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定手机"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -63,8 +63,8 @@
 				};
 				this.$H.post('/user/update', data).then(res => {
 					uni.navigateBack({
-						delta: 1
-					});
+						delta: 4
+					})
 					uni.showToast({
 						title: '修改密码成功',
 						icon: 'none'

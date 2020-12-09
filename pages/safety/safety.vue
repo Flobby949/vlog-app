@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-list-item title="修改密码" @click="open('modify-password')"></uni-list-item>
-		<uni-list-item title="绑定手机"></uni-list-item>
+		<uni-list-item title="绑定手机" @click="open('bind-phone')"></uni-list-item>
 		<uni-list-item title="绑定微信"></uni-list-item>
 		<uni-list-item title="绑定QQ"></uni-list-item>
 	</view>

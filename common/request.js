@@ -30,7 +30,7 @@ export default {
 				...options,
 				success: (result) => {
 					// 返回原始数据
-					// console.log(result);
+					// console.log("result"+result);
 					if(options.native){
 						return res(result)
 					}
@@ -44,6 +44,7 @@ export default {
 					}
 					// 成功
 					res(result.data.data)
+					
 				},
 				fail:(error)=>{
 					uni.showToast({

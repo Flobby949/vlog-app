@@ -31,7 +31,7 @@
 					>
 						{{ codeTime > 0 ? codeTime + ' s' : '获取验证码' }}
 					</view>
-				</view>
+				</view>-
 			</template>
 		</view>
 
@@ -76,6 +76,7 @@
 
 <script>
 import uniStatusBar from '@/components/uni-ui/uni-status-bar/uni-status-bar.vue';
+import { mapState } from 'vuex';
 export default {
 	components: {
 		uniStatusBar
@@ -92,6 +93,9 @@ export default {
 	},
 	onLoad() {},
 	computed: {
+		...mapState({
+			user: state => state.user
+		}),
 		disabled() {
 			if ((this.phone === '' || this.password === '') && (this.phone === '' || this.code === '')) {
 				return true;
@@ -214,7 +218,6 @@ export default {
 					this.loading = false;
 				});
 		},
-
 		appLogin() {
 			let self = this;
 			uni.login({
@@ -236,13 +239,39 @@ export default {
 								.then(res => {
 									self.loading = false;
 									console.log(res);
+									console.log("phone"+self.user.phone);
 									if (res) {
 										console.log(res);
 										//修改vuex的state,持久化存储
 										self.$store.commit('login', res);
-										uni.switchTab({
+										//检测该账号是否已经绑定手机号
+										if(self.user.phone === null){
+											uni.showModal({
+												title: '该用户未绑定手机号，是否绑定',
+												content: '去绑定',
+												success: function(res) {
+													if (res.confirm) {
+														console.log("去绑定");
+														uni.navigateTo({
+															url: `../bind-phone/bind-phone`
+														});
+													} else if (res.cancel) {
+														console.log('用户绑定取消');
+														uni.switchTab({
+															url: '../my/my'
+														});
+													}
+												}
+											});
+										}else{
+											uni.showToast({
+												title: '已绑定手机号'
+											});
+											console.log("存在手机号");
+											uni.switchTab({
 											url: '../my/my'
 										});
+										}
 									} else {
 										uni.showModal({
 											title: '登录失败'
