@@ -49,6 +49,8 @@
 				return true;
 			},
 			submit() {
+				console.log("用户信息")
+				console.log(this.user)
 				if (!this.check()) {
 					return;
 				}
@@ -62,6 +64,7 @@
 					address: this.user.address
 				};
 				this.$H.post('/user/update', data).then(res => {
+					this.$store.commit('login', res);
 					uni.navigateBack({
 						delta: 4
 					})

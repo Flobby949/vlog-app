@@ -178,7 +178,9 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
       }
       return true;
     },
-    submit: function submit() {
+    submit: function submit() {var _this = this;
+      console.log("用户信息");
+      console.log(this.user);
       if (!this.check()) {
         return;
       }
@@ -192,8 +194,9 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumera
         address: this.user.address };
 
       this.$H.post('/user/update', data).then(function (res) {
+        _this.$store.commit('login', res);
         uni.navigateBack({
-          delta: 1 });
+          delta: 4 });
 
         uni.showToast({
           title: '修改密码成功',

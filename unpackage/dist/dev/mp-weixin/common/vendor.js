@@ -3106,7 +3106,7 @@ var index = {
 
 /***/ }),
 
-/***/ 120:
+/***/ 126:
 /*!**********************************************************************************************!*\
   !*** E:/HBuilderX/project/vlog-app/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
   \**********************************************************************************************/
@@ -3256,7 +3256,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 121:
+/***/ 127:
 /*!******************************************************************************************!*\
   !*** E:/HBuilderX/project/vlog-app/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
   \******************************************************************************************/
@@ -4770,7 +4770,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 122:
+/***/ 128:
 /*!******************************************************************************************!*\
   !*** E:/HBuilderX/project/vlog-app/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
   \******************************************************************************************/
@@ -17379,7 +17379,7 @@ var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 
       options), {}, {
         success: function success(result) {
           // 返回原始数据
-          // console.log(result);
+          // console.log("result"+result);
           if (options.native) {
             return res(result);
           }
@@ -17393,6 +17393,7 @@ var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 
           }
           // 成功
           res(result.data.data);
+
         },
         fail: function fail(error) {
           uni.showToast({

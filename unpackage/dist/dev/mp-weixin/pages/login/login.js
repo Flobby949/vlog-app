@@ -128,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 108));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -194,6 +194,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniStatusBar = function uniStatusBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 114));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     uniStatusBar: uniStatusBar },
@@ -209,13 +222,16 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onLoad: function onLoad() {},
-  computed: {
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapState)({
+    user: function user(state) {return state.user;} })), {}, {
+
     disabled: function disabled() {
       if ((this.phone === '' || this.password === '') && (this.phone === '' || this.code === '')) {
         return true;
       }
       return false;
-    } },
+    } }),
 
   methods: {
     back: function back() {
@@ -331,6 +347,76 @@ __webpack_require__.r(__webpack_exports__);
         //登录失败
         _this2.loading = false;
       });
+    },
+    appLogin: function appLogin() {
+      var self = this;
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          uni.getUserInfo({
+            provider: 'weixin',
+            success: function success(infoRes) {
+              console.log(infoRes);
+              var wxLoginDto = {
+                wxOpenId: infoRes.userInfo.openId,
+                nickname: infoRes.userInfo.nickName,
+                avatar: infoRes.userInfo.avatarUrl,
+                gender: infoRes.userInfo.gender };
+
+              self.loading = true;
+              self.$H.
+              post('/user/wxLogin', wxLoginDto).
+              then(function (res) {
+                self.loading = false;
+                console.log(res);
+                console.log("phone" + self.user.phone);
+                if (res) {
+                  console.log(res);
+                  //修改vuex的state,持久化存储
+                  self.$store.commit('login', res);
+                  //检测该账号是否已经绑定手机号
+                  if (self.user.phone === null) {
+                    uni.showModal({
+                      title: '该用户未绑定手机号，是否绑定',
+                      content: '去绑定',
+                      success: function success(res) {
+                        if (res.confirm) {
+                          console.log("去绑定");
+                          uni.navigateTo({
+                            url: "../bind-phone/bind-phone" });
+
+                        } else if (res.cancel) {
+                          console.log('用户绑定取消');
+                          uni.switchTab({
+                            url: '../my/my' });
+
+                        }
+                      } });
+
+                  } else {
+                    uni.showToast({
+                      title: '已绑定手机号' });
+
+                    console.log("存在手机号");
+                    uni.switchTab({
+                      url: '../my/my' });
+
+                  }
+                } else {
+                  uni.showModal({
+                    title: '登录失败' });
+
+                  return;
+                }
+              }).
+              catch(function (err) {
+                //登录失败
+                self.loading = false;
+              });
+            } });
+
+        } });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

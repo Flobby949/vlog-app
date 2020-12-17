@@ -10,7 +10,8 @@
     "pages/user-info/user-info",
     "pages/user-feedback/user-feedback",
     "pages/safety/safety",
-    "pages/modify-password/modify-password"
+    "pages/modify-password/modify-password",
+    "pages/bind-phone/bind-phone"
   ],
   "subPackages": [],
   "window": {
@@ -55,5 +56,5 @@
     "divider": "/components/common/divider",
     "no-thing": "/components/common/no-thing"
   },
-  "sitemapLocation": "sitemap62.json"
+  "sitemapLocation": "sitemap56.json"
 }
