@@ -147,6 +147,14 @@
             }
             
         }
+        ,{
+            "path" : "pages/ArticleDetail/ArticleDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "文章详情"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

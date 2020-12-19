@@ -30,7 +30,7 @@
 		</view> -->
 		
 		<view v-for="(article, index) in articles" :key="index">
-			<my-card :article="article"></my-card>
+			<my-card :article="article" @open="gotoDetail(article.id)"></my-card>
 		</view>
 		
 	</view>
@@ -95,7 +95,7 @@ export default {
 			url: $C.webUrl + '/article/page?pageNum='+this.pageNum+'&pageSize='+this.pageSize,
 			method: 'POST',
 			header:{
-				userId: 1
+				userId: this.user.id
 			},
 			success: (res) => {
 				setTimeout(() => {
@@ -148,6 +148,12 @@ export default {
 				console.log(res.data.data.total);
 				this.articles = res.data.data.list
 				}
+			});
+		},
+		gotoDetail(id){
+			console.log("文章id" + id);
+			uni.navigateTo({
+				url:'../ArticleDetail/ArticleDetail?id=' + id
 			});
 		}
 	}
